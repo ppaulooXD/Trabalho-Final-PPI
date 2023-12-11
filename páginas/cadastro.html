@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de usuário</title>
+    <style>
+        *{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .container{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .btn{
+            background-color: royalblue;
+            padding: 5px;
+            width: 100px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+            border-color: royalblue;
+        }
+        label{
+            color: royalblue;
+        }
+        input{
+            padding: 5px;
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="/cadastro" method="POST">
+            <label for="name">Nome:</label><br>
+            <input type="text" name="name"></br></br>
+            <label for="datanasc">Data de Nascimento:</label></br>
+            <input type="date" name="datanasc"></br></br>
+            <label for="username">Username:</label></br>
+            <input type="text" name="username"></br></br>
+            <button class="btn" type="submit">Cadastrar</button>
+        </form>
+    </div>
+    
+</body>
+</html>
