@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        *{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .container{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .btn{
+            background-color: royalblue;
+            padding: 5px;
+            width: 100px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        label{
+            color: royalblue;
+        }
+        input{
+            padding: 5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="/login" method="POST">
+            <label for="username">Username:</label><br>
+            <input type="text" name="username"></br></br>
+            <label for="senha">Senha:</label></br>
+            <input type="password" name="senha"></br></br>
+            <button class="btn" type="submit">Login</button>
+        </form>
+    </div>
+    
+</body>
+</html>
