@@ -24,7 +24,7 @@ app.use(session({
 
 app.get('/',autenticacao, (requisicao, resposta) => {
   const ultimoacesso = requisicao.cookies.ultimoacesso;
-  const data = new Date();
+  const data = new Date().toLocaleString();
   resposta.cookie("ultimoacesso", data.toLocaleString(),{
     maxAge: 1000 * 60 * 60 * 24 * 30,
     httpOnly: true
@@ -210,9 +210,10 @@ function listausuarios(requisicao, resposta){
       resposta.end(contresposta);
   }
   else{
+    const datanasc = new Date().toLocaleString();
       const usuario = {
           name: requisicao.body.name,
-          datanasc: requisicao.body.datanasc,
+          datanasc,
           username: requisicao.body.username
       }
       usuarios.push(usuario);
@@ -280,6 +281,168 @@ function listausuarios(requisicao, resposta){
   }
               
 }
+
+app.get('/mensagem', autenticacao, (requisicao, resposta) => {
+  const usuario = requisicao.body.username;
+  const mensagemTexto = requisicao.body.mensagem;
+  const data = new Date().toLocaleString();
+
+  const novaMensagem = {
+      username: usuario,
+      texto: mensagemTexto,
+      data,
+  };
+
+let contresposta = `<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bate-papo</title>
+    <style>
+        h1{
+            text-align: center;
+            color: royalblue;
+        }
+        *{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+       .data{
+        opacity: 50%;
+        font-size: small;
+        margin-top: -10px;
+       }
+       .containerPrincipal{
+        justify-content: column;
+        border: 2px solid royalblue;
+        border-radius: 5px;
+        width: 80%;
+        margin: auto;
+        padding: 10px;
+       }
+       .containerMsg{
+        margin-top: 10px;
+       }
+       .hr{
+        background-color: royalblue;
+        height: 1px;
+        border: none;
+       }
+       .formulario{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+       }
+       select{
+        background-color: royalblue;
+        color: white;
+        border: 1px solid royalblue;
+        border-radius: 2px;
+       }
+       input{
+        border: 1px solid royalblue;
+        border-radius: 2px;
+        margin-right: 5px;
+       }
+       button{
+        background-color: royalblue;
+        color: white;
+        border: 1px solid royalblue;
+        border-radius: 2px;
+       }
+       button:hover{
+        background-color: white;
+        color: royalblue;
+       }
+       a{
+        text-decoration: none;
+        background-color: red;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+       }
+       a:hover{
+        background-color: white;
+        color: red;
+        border: 1px solid red;
+       }
+    </style>
+</head>
+<body>
+    <a href="/">Voltar ao menu</a>
+    <h1>Bate-papo</h1>
+    <div class="containerPrincipal">`;
+       for(const mensagem of mensagens){
+        contresposta += `
+        <div class="containerMsg">
+            <p>${mensagem.username}</p>
+            <p class="data">${mensagem.data}</p>
+            <p class="mensagem">${mensagem.texto}</p>
+        </div>
+        <hr class="hr">`;
+       }
+    
+       contresposta += `
+    </div>
+    <div class="formulario">
+        <form action="/mensagem" method="POST">
+            <select name="username" id="">`;
+            for(const usuario of usuarios){
+                contresposta += `
+                <option value="${usuario.username}">${usuario.username}</option>`;
+            }
+            contresposta += `
+            </select>
+            <input type="text" name="mensagem">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>`;
+resposta.send(contresposta); 
+
+})
+
+
+app.post('/mensagem', autenticacao, (requisicao, resposta) => {
+  const usuario = requisicao.body.username;
+  const mensagemTexto = requisicao.body.mensagem;
+
+  if (usuario && mensagemTexto) {
+    const data = new Date().toLocaleString();
+
+    const novaMensagem = {
+      username: usuario,
+      texto: mensagemTexto,
+      data,
+    };
+
+    mensagens.push(novaMensagem);
+
+    resposta.redirect('/mensagem');
+  } else {
+    resposta.redirect
+  }
+  resposta.end(`
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Erro</title>
+    </head>
+    <body>
+        <h1 style="color: red; text-align: center; font-family: Verdana">Mensagem inválida</h1>
+        </br>
+        <div style="text-align: center">
+            <a style="font-family: Verdana; text-decoration: none; color: royalblue" href="/mensagem">Voltar</a>
+        </div>
+    </body>
+    </html>
+  `);
+});
+
 
 app.post('/cadastro',autenticacao, listausuarios);
 

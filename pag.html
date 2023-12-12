@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bate-papo</title>
+    <style>
+        h1{
+            text-align: center;
+            color: royalblue;
+        }
+        *{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+       .data{
+        opacity: 50%;
+        font-size: small;
+        margin-top: -10px;
+       }
+       .containerPrincipal{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid royalblue;
+        border-radius: 5px;
+        width: 800px;
+       }
+       .containerMsg{
+        margin-left: 10px;
+       }
+       .hr{
+        background-color: royalblue;
+        height: 1px;
+        border: none;
+       }
+       .formulario{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: -100px;
+       }
+       select{
+        background-color: royalblue;
+        color: white;
+        border: 1px solid royalblue;
+        border-radius: 2px;
+       }
+       input{
+        border: 1px solid royalblue;
+        border-radius: 2px;
+       }
+       button{
+        background-color: royalblue;
+        color: white;
+        border: 1px solid royalblue;
+        border-radius: 2px;
+       }
+       button:hover{
+        background-color: white;
+        color: royalblue;
+       }
+       a{
+        text-decoration: none;
+        background-color: red;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+       }
+       a:hover{
+        background-color: white;
+        color: red;
+        border: 1px solid red;
+       }
+    </style>
+</head>
+<body>
+    <a href="/">Voltar ao menu</a>
+    <h1>Bate-papo</h1>
+    <div class="containerPrincipal">
+        <div class="containerMsg">
+            <p>Usuario</p>
+            <p class="data">data</p>
+            <p class="mensagem">Mensagem</p>
+        </div>
+        <hr class="hr">
+    </div>
+    <div class="formulario">
+        <form action="">
+            <select name="username" id="">
+                <option value="">Opcao</option>
+            </select>
+            <input type="text" name="mensagem">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>
